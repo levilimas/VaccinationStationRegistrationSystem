@@ -6,18 +6,7 @@
 
         public string Name { get; set; }
 
-        public string Address { get; set; }
 
-        public List<Vaccine> Vaccines { get; set; }
-
-        public VaccinationStation()
-        {
-            Vaccines = new List<Vaccine>();
-        }
-
-        public bool HasVaccines()
-        {
-            return Vaccines.Count > 0;
-        }
+        public ICollection<Vaccine> Vaccines { get; set; }
     }
 }

@@ -4,72 +4,28 @@ using VaccinationStationRegistrationSystem.Models;
 
 namespace VaccinationStationRegistrationSystem.Services
 {
-    public class VacinneService
+    public class VaccineService
     {
         private readonly VaccinationSystemDataContext _vaccinationSystemDataContext;
-        public VacinneService(VaccinationSystemDataContext vaccinationSystemDataContext)
+
+        public VaccineService(VaccinationSystemDataContext vaccinationSystemDataContext)
         {
             _vaccinationSystemDataContext = vaccinationSystemDataContext;
         }
 
-        public IEnumerable<VaccinationSystemDataContext> GetAllVaccines()
+        public async Task<List<Vaccine>> GetAllVaccinesAsync()
         {
-            return _vaccinationSystemDataContext;
+            return await _vaccinationSystemDataContext.Vaccines.ToListAsync();
         }
 
-        public Vaccine GetVaccineById(int id)
+        public async Task<Vaccine> AddVaccineAsync(Vaccine vaccine)
         {
-            return _vaccinationSystemDataContext.FirstOrDefault(v => v.Id == id);
-        }
+            if (vaccine.ExpiryDate <= DateTime.Now)
+                throw new InvalidOperationException("A vacina encontra-se com data de validade vencida.");
 
-        public bool AddVaccine(Vaccine vaccine)
-        {
-            if (_vaccinationSystemDataContext.Any(v => v.Batch == vaccine.Batch))
-            {
-                throw new ArgumentException("Vaccine with the same batch number already exists.");
-            }
-
-            if (ExpiryDate > DateTime.Now)
-            {
-                throw new ArgumentException("Vaccine expiry date must be in the future.");
-            }
-
-            _vaccinationSystemDataContext.Add(vaccine);
-            return true;
-        }
-
-        public bool RemoveVaccine(int id)
-        {
-            var vaccine = GetVaccineById(id);
-            if (vaccine != null)
-            {
-                _vaccinationSystemDataContext.Remove(vaccine);
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool UpdateVaccine(int id, Vaccine updatedVaccine)
-        {
-            var vaccine = GetVaccineById(id);
-            if (vaccine != null)
-            {
-                if (_vaccinationSystemDataContext.Any(v => v.BatchNumber == updatedVaccine.BatchNumber && v.Id != id))
-                {
-                    throw new ArgumentException("Another vaccine with the same batch number already exists.");
-                }
-
-                vaccine.Name = updatedVaccine.Name;
-                vaccine.Manufacturer = updatedVaccine.Manufacturer;
-                vaccine.BatchNumber = updatedVaccine.BatchNumber;
-                vaccine.Quantity = updatedVaccine.Quantity;
-                vaccine.ExpiryDate = updatedVaccine.ExpiryDate;
-
-                return true;
-            }
-
-            return false;
+            _vaccinationSystemDataContext.Vaccines.Add(vaccine);
+            await _vaccinationSystemDataContext.SaveChangesAsync();
+            return vaccine;
         }
     }
 }

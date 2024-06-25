@@ -1,72 +1,43 @@
-﻿using VaccinationStationRegistrationSystem.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using VaccinationStationRegistrationSystem.Data;
+using VaccinationStationRegistrationSystem.Models;
 
 namespace VaccinationStationRegistrationSystem.Services
 {
-    public class VaccinationStationService
+    public class VaccinationStationservice
     {
+        private readonly VaccinationSystemDataContext _vaccinationSystemDataContext;
 
-        private readonly List<VaccinationStation> _vaccinationStations;
-
-        public VaccinationStationService()
+        public VaccinationStationservice(VaccinationSystemDataContext vaccinationSystemDataContext)
         {
-            _vaccinationStations = new List<VaccinationStation>();
+            _vaccinationSystemDataContext = vaccinationSystemDataContext;
         }
 
-        public IEnumerable<VaccinationStation> GetAllVaccinationStations()
+        public async Task<List<VaccinationStation>> GetAllVaccinationStationsAsync()
         {
-            return _vaccinationStations;
+            return await _vaccinationSystemDataContext.VaccinationStations.Include(vs => vs.Vaccines).ToListAsync();
         }
 
-        public VaccinationStation GetVaccinationStationById(int id)
+        public async Task<VaccinationStation> AddVaccineStationAsync(VaccinationStation vaccinationStation)
         {
-            return _vaccinationStations.FirstOrDefault(c => c.Id == id);
+            if (_vaccinationSystemDataContext.VaccinationStations.Any(vs => vs.Name == vaccinationStation.Name))
+                throw new InvalidOperationException("A station with this name already exists.");
+
+            _vaccinationSystemDataContext.VaccinationStations.Add(vaccinationStation);
+            await _vaccinationSystemDataContext.SaveChangesAsync();
+            return vaccinationStation;
         }
 
-        public bool AddVaccinationStation(VaccinationStation vaccinationStation)
+        public async Task DeleteVaccineStationAsync(int id)
         {
-            if (_vaccinationStations.Any(c => c.Name.Equals(vaccinationStation.Name, StringComparison.OrdinalIgnoreCase)))
-            {
-                throw new ArgumentException("Já existe um posto de vacinação com o mesmo nome.");
-            }
+            var station = await _vaccinationSystemDataContext.VaccinationStations(vs => vs.Vaccines).FirstOrDefaultAsync(vs => vs.Id == id);
 
-            _vaccinationStations.Add(vaccinationStation);
-            return true;
-        }
+            if (station == null || station.Vaccination.Any())
+                throw new InvalidOperationException("Cannot delete a station with vaccines.");
 
-        public bool RemoveVaccinationStation(int id)
-        {
-            var vaccinationStation = GetVaccinationStationById(id);
-            if (vaccinationStation != null)
-            {
-                if (vaccinationStation.HasVaccines())
-                {
-                    throw new InvalidOperationException("Não é possível excluir um posto de vacinação que possui vacinas.");
-                }
-
-                _vaccinationStations.Remove(vaccinationStation);
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool UpdateVaccinationStation(int id, VaccinationStation updatedVaccinationStation)
-        {
-            var vaccinationStation = GetVaccinationStationById(id);
-            if (vaccinationStation != null)
-            {
-                if (_vaccinationStations.Any(c => c.Name.Equals(updatedVaccinationStation.Name, StringComparison.OrdinalIgnoreCase) && c.Id != id))
-                {
-                    throw new ArgumentException("Já existe outro Posto de Vacinação com o mesmo nome.");
-                }
-
-                vaccinationStation.Name = updatedVaccinationStation.Name;
-                vaccinationStation.Address = updatedVaccinationStation.Address;
-
-                return true;
-            }
-
-            return false;
+            _vaccinationSystemDataContext.VaccinationStations.Remove(station);
+            await _vaccinationSystemDataContext.SaveChangesAsync();
         }
     }
 }
