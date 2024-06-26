@@ -60,15 +60,16 @@ dotnet run
 Agora, com o navegador já aberto e acesse a URL abaixo para visualizar a documentação da API no Swagger:
 A API estará disponível em <https://localhost:7158/swagger/>.
 
-![Swagger](path/to/your/swagger/image.png)
+- Imagens do teste no Swagger com passo a passo <https://imgur.com/a/JxkHBFe>
 
 6. **Testando a API**
 
-Utilize o Postman ou outra ferramenta similar para enviar requisições à API e verificar se está funcionando corretamente.
+Utilize o Swagger, Insomnia, Postman ou outra ferramenta similar para enviar requisições à API e verificar se está funcionando corretamente.
+As imagens contidas no passo acima podem mostrar o funcionamento da API corretamente.
 
 ## Conclusão
 
-Agora você configurou e executou a API [nome-da-sua-api] desenvolvida em C# com .NET Framework, integrada com Entity Framework usando SQLite como banco NoSQL, e documentada com Swagger. Para mais detalhes sobre os endpoints disponíveis, consulte a documentação do Swagger fornecida.
+Agora você configurou e executou a API `VaccinationStationRegistrationSystem` desenvolvida em C# com .NET Framework, integrada com Entity Framework usando SQLite como banco NoSQL, e documentada com Swagger. Para mais detalhes sobre os endpoints disponíveis, consulte a documentação do Swagger fornecida.
 Esse script em Markdown pode ser adaptado de acordo com as configurações específicas do seu projeto, garantindo que os passos sejam claros e fáceis de seguir para qualquer desenvolvedor interessado em executar sua API a partir do código-fonte disponível no GitHub.
 
 
