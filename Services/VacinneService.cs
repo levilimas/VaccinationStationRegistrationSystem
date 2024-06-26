@@ -40,12 +40,12 @@ namespace VaccinationStationRegistrationSystem.Services
 
         public async Task<Vaccine> EditVaccineAsync(Vaccine updatedVaccine, int id)
         {
-            ValidateVaccines(updatedVaccine);
             var vaccineToEdit = await _vaccinationSystemDataContext.Vaccines.Where(vs => vs.Id == id).FirstOrDefaultAsync();
 
             if (vaccineToEdit == null)
                 throw new InvalidOperationException("Não foi possível encontrar a vacina.");
 
+            ValidateVaccines(updatedVaccine);
 
             _vaccinationSystemDataContext.Vaccines.Update(vaccineToEdit);
 
@@ -57,8 +57,10 @@ namespace VaccinationStationRegistrationSystem.Services
         {
             if (vaccine.ExpiryDate <= DateTime.Now)
                 throw new InvalidOperationException("A vacina deve ter data de validade futura.");
+
             if (_vaccinationSystemDataContext.Vaccines.Any(vc => vc.BatchNumber == vaccine.BatchNumber))
                 throw new InvalidOperationException("As vacinas não podem ter do mesmo lote");
+
             if (!_vaccinationSystemDataContext.VaccinationStations.Any(vs => vs.Id == vaccine.VaccinationStationId))
                 throw new InvalidOperationException("Posto de vacinação não encontrado.");
         }

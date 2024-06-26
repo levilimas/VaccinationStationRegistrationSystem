@@ -49,6 +49,9 @@ namespace VaccinationStationRegistrationSystem.Services
             if (vaccinationStationToEdit == null)
                 throw new InvalidOperationException("Não foi possível encontrar um posto de vacinação.");
 
+            if (_vaccinationSystemDataContext.VaccinationStations.Any(vs => vs.Name == vaccinationStation.Name))
+                throw new InvalidOperationException("Já existe uma estação de vacinação com esse nome.");
+
             vaccinationStationToEdit.Name = vaccinationStation.Name;
 
             await _vaccinationSystemDataContext.SaveChangesAsync();
