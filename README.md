@@ -32,6 +32,7 @@ git clone https://github.com/levilimas/VaccinationStationRegistrationSystem.git
 3. **Instalando Pacotes Necessários**
 
 No gerenciador de pacotes NuGet do Visual Studio, ou via linha de comando:
+- Pacotes do entityFramework e Sqlite, sendo esse o Banco relacional utilizado.
 
 ```
 
