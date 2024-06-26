@@ -1,4 +1,5 @@
 using VaccinationStationRegistrationSystem.Data;
+using VaccinationStationRegistrationSystem.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<VaccinationSystemDataContext>();
+builder.Services.AddScoped<VaccinationStationService>();
+builder.Services.AddScoped<VaccineService>();
 
 var app = builder.Build();
 

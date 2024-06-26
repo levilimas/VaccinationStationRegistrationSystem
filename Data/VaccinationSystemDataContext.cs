@@ -11,20 +11,5 @@ namespace VaccinationStationRegistrationSystem.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
             optionsBuilder.UseSqlite("DataSource=app.db;Cache=Shared;");
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Vaccine>()
-                .HasIndex(v => v.BatchNumber)
-                .IsUnique();
-
-            modelBuilder.Entity<VaccinationStation>()
-                .HasIndex(vs => vs.Name)
-                .IsUnique();
-
-            modelBuilder.Entity<VaccinationStation>()
-                .HasMany(vs => vs.Vaccines)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Restrict); 
-        }
     }
 }

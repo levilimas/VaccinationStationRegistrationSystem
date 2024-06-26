@@ -29,5 +29,33 @@ namespace VaccinationStationRegistrationSystem.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVaccine(int id)
+        {
+            try
+            {
+                await _vaccineService.DeleteVaccineAsync(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> EditVaccine(Vaccine vaccine, int id)
+        {
+            try
+            {
+                var vaccineToEdit = await _vaccineService.EditVaccineAsync(vaccine, id);
+                return Ok(vaccineToEdit);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
