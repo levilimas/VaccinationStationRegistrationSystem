@@ -27,7 +27,7 @@ git clone https://github.com/levilimas/VaccinationStationRegistrationSystem.git
 2. **Configurando o Ambiente de Desenvolvimento**
 
 - Abra o projeto utilizando o Visual Studio ou outro IDE compatível com .NET Framework.
-- Certifique-se de que o Entity Framework está configurado para utilizar o SqLite como banco de dados NoSQL. Verifique o arquivo de configuração `app.config` ou `web.config` para ajustes necessários.
+- Certifique-se de que o Entity Framework está configurado para utilizar o SqLite como banco de dados SQL. Verifique o arquivo de configuração `app.config` ou `web.config` para ajustes necessários.
 
 3. **Instalando Pacotes Necessários**
 
@@ -64,7 +64,7 @@ A API estará disponível em <https://localhost:7158/swagger/>.
 
 6. **Testando a API**
 
-Utilize o Swagger, Insomnia, Postman ou outra ferramenta similar para enviar requisições à API e verificar se está funcionando corretamente.
+Utilize o Swagger, para enviar requisições à API e verificar se está funcionando corretamente.
 As imagens contidas no passo acima podem mostrar o funcionamento da API corretamente.
 
 ## Conclusão
