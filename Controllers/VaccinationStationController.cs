@@ -5,7 +5,7 @@ using VaccinationStationRegistrationSystem.Services;
 namespace VaccinationStationRegistrationSystem.Controllers
 {
     [ApiController]
-    [Route("VaccineStation")]
+    [Route("VaccinationStation")]
     public class VaccinationStationController : ControllerBase
     {
         private readonly VaccinationStationService _stationService;
