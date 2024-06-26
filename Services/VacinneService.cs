@@ -49,7 +49,7 @@ namespace VaccinationStationRegistrationSystem.Services
 
             _vaccinationSystemDataContext.Vaccines.Update(vaccineToEdit);
 
-            return vaccineToEdit;
+            return updatedVaccine;
         }
 
 
