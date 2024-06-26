@@ -6,10 +6,15 @@ namespace VaccinationStationRegistrationSystem.Controllers
 {
     [ApiController]
     [Route("Vaccines")]
-    public class VaccinesController(VaccineService vaccineService) : ControllerBase
+    public class VaccinesController : ControllerBase
     {
         private readonly VaccineService _vaccineService = vaccineService;
 
+        public VaccinationStationController(VaccineService vaccineService)
+        {
+            _vaccineService = vecinneService;
+        }
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vaccine>>> GetVaccines()
         {
