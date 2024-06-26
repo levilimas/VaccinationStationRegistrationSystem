@@ -41,7 +41,7 @@ namespace VaccinationStationRegistrationSystem.Controllers
             try
             {
                 await _stationService.DeleteVaccinationStationAsync(id);
-                return Ok();
+                return Ok("Posto de vacinação deletado com sucesso.");
             }
             catch (Exception ex)
             {
