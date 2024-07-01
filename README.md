@@ -69,7 +69,7 @@ As imagens contidas no passo acima podem mostrar o funcionamento da API corretam
 
 ## Conclusão
 
-Agora você configurou e executou a API `VaccinationStationRegistrationSystem` desenvolvida em C# com .NET Framework, integrada com Entity Framework usando SQLite como banco SQL, e documentada com Swagger. Para mais detalhes sobre os endpoints disponíveis, consulte a documentação do Swagger fornecida.
+Agora você configurou e executou a API `VaccinationStationRegistrationSystem` desenvolvida em C# com .NET 8, integrada com Entity Framework usando SQLite como banco SQL, e documentada com Swagger.
 
 
 
