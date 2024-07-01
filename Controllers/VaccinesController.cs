@@ -8,7 +8,7 @@ namespace VaccinationStationRegistrationSystem.Controllers
     [Route("Vaccines")]
     public class VaccinesController : ControllerBase
     {
-        private readonly VaccineService _vaccineService = vaccineService;
+        private readonly VaccineService _vaccineService;
 
         public VaccinationStationController(VaccineService vaccineService)
         {
