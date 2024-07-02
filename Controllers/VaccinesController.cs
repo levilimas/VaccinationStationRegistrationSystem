@@ -10,9 +10,9 @@ namespace VaccinationStationRegistrationSystem.Controllers
     {
         private readonly VaccineService _vaccineService;
 
-        public VaccineController(VaccineService vaccineService)
+        public VaccinesController(VaccineService vaccineService)
         {
-            _vaccineService = vecinneService;
+            _vaccineService = vaccineService;
         }
         
         [HttpGet]
